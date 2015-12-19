@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block title %} Create New Board {% endblock title %}
+
+{% block content %}
+    <h3 class="page-header">New Board</h3>
+    <form action="{% url 'simpleboard:board_new' %}" method="post" class="form-horizontal" role=""form>
+    {% csrf_token %}
+    {{ form|bootstrap_horizontal }}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <a href="{% url 'simpleboard:board_list' %}" class="btn btn-default btn-sm">Back</a>
+            <button class="btn btn-primary" type="submit">Create</button>
+        </div>
+    </div>
+    </form>
+{% endblock content %}

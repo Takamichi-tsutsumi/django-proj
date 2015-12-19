@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block content %}
+    <h2 class="page-header">
+        Board List
+        <button class="btn btn-primary btn-sm post-btn" data-toggle="modal" data-target="#boardNewModal" style="float: right;">New Board</button>
+    </h2>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Board Title</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for board in boards %}
+            <tr>
+                <td>
+                    <a href="{% url 'simpleboard:board_show' board_id=board.id %}">
+                        {{ board.title }}
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="boardNewModal" aria-labelledby="postModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="postModalLabel">New Board</h4>
+                </div>
+                <form action="{% url 'simpleboard:board_new' %}" method="post" class="form-horizontal" role="form">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {{ form|bootstrap_horizontal }}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary btn-sm" type="submit">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

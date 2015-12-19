@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block title %} New Post {% endblock title %}
+
+{% block content %}
+<h3 class="page-header">nEW pOST</h3>
+    <form action="{% url 'simpleboard:post_new' board_id=board.id %}" method="post" class="fomr-horizontal" role="form">
+        {% csrf_token %}
+    {{ form|bootstrap_horizontal }}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <a href="{% url 'simpleboard:board_show' board_id=board.id %}" class="btn btn-default btn-sm">Cancel</a>
+            <button class="btn btn-primary" type="submit">Post</button>
+        </div>
+    </div>
+    </form>
+{% endblock content %}
