@@ -109,3 +109,7 @@ LOGGING = {
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+LOGIN_URL = '/simpleboard/login/'
+
+LOGIN_REDIRECT_URL = '/simpleboard/'

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from simpleboard.models import Board, Post
+from simpleboard.models import Board, Post, Favorite
 
 
 class BoardAdmin(admin.ModelAdmin):
@@ -12,3 +12,9 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('id', 'comment')
     list_display_links = ('id', )
 admin.site.register(Post, PostAdmin)
+
+
+class FavoriteAdmin(admin.ModelAdmin):
+    list_display = ('user', 'post',)
+    list_display_links = ('user',)
+admin.site.register(Favorite, FavoriteAdmin)

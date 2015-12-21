@@ -1,7 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'sb_base.html' %}
 {% load bootstrap %}
+{% load staticfiles %}
 
 {% block extrahead %}
+    <script src="{% static 'js/favorite.js' %}"></script>
     <style>
         .board-post {
             min-height: 60px;
@@ -11,8 +13,14 @@
             float: right;
             margin: 0 5px;
         }
+        .fav, .faved {
+            color: #e2e2e2;
+        }
+        .faved i {
+            color: orange !important;
+        }
     </style>
-{% endblock %}
+{% endblock extrahead %}
 
 {% block content %}
 <h3 class="page-header">
@@ -26,11 +34,24 @@
 
     <div class="row">
     {% for post in posts %}
-    <div class="board-post col-md-10 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1" style="border: solid 1px #e2e2e2">
-    <p class="post-body">
-    {{ post.comment }}
-    </p>
-    </div>
+        <div
+                id="post_area_{{ post.id }}"
+                class="board-post col-md-10 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1"
+                style="border: solid 1px #e2e2e2">
+            <p class="post-body">
+                {{ post.comment }}
+            </p>
+            <div class="button-area">
+                <a
+                        href="#"
+                        id="fav-post{{ post.id }}"
+                        class="fav{% if post.id in faved_id %} faved{% endif %}"
+                        data-post-id="{{ post.id }}"
+                >
+                    <i class="glyphicon glyphicon-star"></i>
+                </a>
+            </div>
+        </div>
     {% endfor %}
     </div>
 

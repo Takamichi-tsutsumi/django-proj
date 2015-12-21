@@ -84,3 +84,4 @@ def impression_del(request, book_id, impression_id):
     impression = get_object_or_404(Impression, pk=impression_id)
     impression.delete()
     return redirect('cms:impression_list', book_id=book_id)
+
