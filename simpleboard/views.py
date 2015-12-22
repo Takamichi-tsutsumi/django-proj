@@ -53,13 +53,9 @@ def board_list(request):
 
 @login_required
 def board_show(request, board_id):
-    faved_post_ids = []
-    fav_posts = Favorite.objects.filter(user_id=request.user.id).values('post_id',)
-    for obj in fav_posts:
-        faved_post_ids.append(int(obj['post_id']))
-    print faved_post_ids
+    faved_post_ids = map(int, request.user.favorites.values_list('post_id', flat=True))
     board = get_object_or_404(Board, pk=board_id)
-    posts = board.posts.all().order_by('-id')
+    posts = board.posts.all().prefetch_related('user__favorites__post').order_by('-id')
     post = Post()
     form = PostForm(instance=post)
     return render_to_response(
