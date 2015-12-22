@@ -19,6 +19,13 @@
         .faved i {
             color: orange !important;
         }
+        .button-area {
+            float: right;
+        }
+        .post-header {
+            font-size: 18px;
+            color: #4b4b4b;
+        }
     </style>
 {% endblock extrahead %}
 
@@ -38,6 +45,7 @@
                 id="post_area_{{ post.id }}"
                 class="board-post col-md-10 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1"
                 style="border: solid 1px #e2e2e2">
+        <h4 class="post-header">{{ post.user }}</h4>
             <p class="post-body">
                 {{ post.comment }}
             </p>
@@ -56,23 +64,23 @@
     </div>
 
     <div class="modal fade" id="postModal" aria-labelledby="postModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="postModalLabel">Post</h4>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="postModalLabel">Post</h4>
+                </div>
+                <form action="{% url 'simpleboard:post_new' board_id=board.id %}" method="post" class="form-horizontal" role="form">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {{ form|bootstrap_horizontal }}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary btn-sm" type="submit">POST</button>
+                    </div>
+                </form>
             </div>
-            <form action="{% url 'simpleboard:post_new' board_id=board.id %}" method="post" class="form-horizontal" role="form">
-            <div class="modal-body">
-                {% csrf_token %}
-                {{ form|bootstrap_horizontal }}
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary btn-sm" type="submit">POST</button>
-            </div>
-            </form>
         </div>
-    </div>
     </div>
 
 {% endblock content %}
