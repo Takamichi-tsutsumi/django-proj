@@ -1,0 +1,35 @@
+{% extends "ws_base.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'css/subjects.css' %}">
+    <script src="{% static 'js/vote.js' %}"></script>
+{% endblock extrahead %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            {% for sbj in subjects %}
+            <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">{{ sbj.title }}</h4>
+                    {{ sbj.content }}
+                </div>
+                <div class="actions">
+                    <a href="" onclick="return false;" id="up-{{ sbj.id }}" data-sbj-id="{{ sbj.id }}">
+                        <i class="glyphicon glyphicon-thumbs-up"></i>
+                    </a>
+                    <a href="" onclick="return false;" id="down-{{ sbj.id }}" data-sbj-id="{{ sbj.id }}">
+                        <i class="glyphicon glyphicon-thumbs-down"></i>
+                    </a>
+                    <span id="count-{{ sbj.id }}" class="badge" style="font-size: 20px;">{{ sbj.point }}</span>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+
+{% endblock content %}
